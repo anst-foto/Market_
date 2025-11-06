@@ -1,0 +1,24 @@
+﻿services:
+  db:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: market_db
+    ports:
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: 0.50
+          memory: 512M
+        reservations:
+          cpus: 0.25
+          memory: 256M      
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d market_db" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped

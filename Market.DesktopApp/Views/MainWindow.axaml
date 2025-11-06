@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Market.DesktopApp.ViewModels"
+        xmlns:c="using:Market.DesktopApp.Components"
+        xmlns:m="using:Market.Models"
+        
+        x:Class="Market.DesktopApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Market.DesktopApp">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Window.Resources>
+        <DataTemplate x:Key="Template_Product"
+                      DataType="{x:Type TypeName=m:Product}">
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="#{0}: {1} ({2} руб.)">
+                        <Binding Path="Id"/>
+                        <Binding Path="Name"/>
+                        <Binding Path="Price"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Загрузить" 
+                      Command="{Binding Path=CommandLoad}"/>
+        </Menu>
+        <StackPanel Orientation="Horizontal"
+                    DockPanel.Dock="Top">
+            <c:InputComponent Label="Поиск"
+                              Value="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Найти"/>
+        </StackPanel>
+        
+        <Grid ColumnDefinitions="*, 2*">
+            <ListBox ItemsSource="{Binding Path=Products}"
+                     ItemTemplate="{StaticResource ResourceKey=Template_Product}"
+                     Grid.Column="0"/>
+        </Grid>
+    </DockPanel>
+</Window>
