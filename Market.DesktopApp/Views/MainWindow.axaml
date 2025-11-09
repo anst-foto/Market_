@@ -32,19 +32,38 @@
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Загрузить" 
-                      Command="{Binding Path=CommandLoad}"/>
+                      Command="{Binding Path=LoadCommand}"/>
         </Menu>
         <StackPanel Orientation="Horizontal"
                     DockPanel.Dock="Top">
             <c:InputComponent Label="Поиск"
                               Value="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="Найти"/>
         </StackPanel>
         
         <Grid ColumnDefinitions="*, 2*">
             <ListBox ItemsSource="{Binding Path=Products}"
                      ItemTemplate="{StaticResource ResourceKey=Template_Product}"
+                     SelectedItem="{Binding Path=SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     SelectionMode="Single"
                      Grid.Column="0"/>
+            
+            <StackPanel Grid.Column="1">
+                <c:InputComponent Label="ID"
+                                  Value="{Binding Path=Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <c:InputComponent Label="Название"
+                                  Value="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <c:InputComponent Label="Цена"
+                                  Value="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Сохранить"
+                            Command="{Binding Path=SaveCommand}"/>
+                    <Button Content="Удалить"
+                            Command="{Binding Path=DeleteCommand}"/>
+                    <Button Content="Очистить"
+                            Command="{Binding Path=ClearCommand}"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>

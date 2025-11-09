@@ -17,7 +17,7 @@ public class Service
     public IEnumerable<Product> GetByName(string name)
     {
         var products = GetAll();
-        return products.Where(product => product.Name.Contains(name));
+        return products.Where(product => product.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
     }
     
     public bool Add(Product product) => _crud.Insert(product);
