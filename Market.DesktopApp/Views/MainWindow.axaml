@@ -9,6 +9,40 @@
         
         Icon="/Assets/avalonia-logo.ico"
         Title="Market.DesktopApp">
+    
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Width" Value="125"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            
+            <Style Selector="^:pointerover /template/ ContentPresenter">
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+            
+            <Style Selector="^.save">
+                <Setter Property="Background" Value="Green"/>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="DarkGreen"/>
+                </Style>
+            </Style>
+            <Style Selector="^.delete">
+                <Setter Property="Background" Value="Red"/>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="DarkRed"/>
+                </Style>
+            </Style>
+            <Style Selector="^.clear">
+                <Setter Property="Background" Value="Orange"/>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="DarkOrange"/>
+                </Style>
+            </Style>
+        </Style>
+    </Window.Styles>
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -57,11 +91,14 @@
                 
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Сохранить"
-                            Command="{Binding Path=SaveCommand}"/>
+                            Command="{Binding Path=SaveCommand}"
+                            Classes="save"/>
                     <Button Content="Удалить"
-                            Command="{Binding Path=DeleteCommand}"/>
+                            Command="{Binding Path=DeleteCommand}"
+                            Classes="delete"/>
                     <Button Content="Очистить"
-                            Command="{Binding Path=ClearCommand}"/>
+                            Command="{Binding Path=ClearCommand}"
+                            Classes="clear"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
