@@ -9,7 +9,7 @@ public class Service
 
     public Service()
     {
-        _crud = new DbContext();
+        _crud = new DbContextWithDapper();
     }
     
     public IEnumerable<Product> GetAll() => _crud.GetAll();
